@@ -35,7 +35,7 @@ public class RelacionesApplication implements CommandLineRunner {
 		
 		System.out.println("Opciones de la aplicación:");
 		System.out.println("1 .- ManyToOne");
-		System.out.println("2 .- ManyToMany");
+		System.out.println("2 .- ManyToOneFindByIdCliente");
 
 		Scanner	scanner = new Scanner(System.in);
 		System.out.println("Selecciona una opción:");
@@ -48,8 +48,8 @@ public class RelacionesApplication implements CommandLineRunner {
 				manyToOne();
 				break;
 			case 2:
-				System.out.println("Has seleccionado ManyToMany");
-				// Aquí puedes agregar la lógica para ManyToMany
+				System.out.println("Has seleccionado ManyToOneFindByIdCliente");
+				manyToOneFindByIdCliente();
 				break;
 			default:
 				System.out.println("Opción no válida");
@@ -68,6 +68,26 @@ public class RelacionesApplication implements CommandLineRunner {
 
 		System.out.println(facturaGuardada);
 		System.out.println("Lógica ManyToOne ejecutada");
+	}
+
+	public void manyToOneFindByIdCliente() {
+		// Implementación de la lógica ManyToOne
+		Cliente cliente = clienteRepository.findById(1L)
+				.orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+		System.out.println("Cliente encontrado: " + cliente);
+
+		Factura factura = fakeData.crearFacturaFalsa(cliente);
+		Factura facturaGuardada = facturaRepository.save(factura);
+
+		System.out.println(facturaGuardada);
+		System.out.println("Lógica ManyToOneFindByIdCliente ejecutada");
+	}
+
+	public void manyToMany() {
+		// Implementación de la lógica ManyToMany
+		System.out.println("Lógica ManyToMany aún no implementada");
+		// Aquí puedes agregar la lógica para ManyToMany
+		System.out.println("Lógica ManyToMany ejecutada");
 	}
 
 }
