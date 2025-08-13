@@ -27,4 +27,10 @@ public class FakeData {
         factura.setCliente(cliente);
         return factura;
     }
+
+    public Long generaIdClienteAleatorio() {
+        // Aquí puedes implementar la lógica para generar un ID de cliente aleatorio
+        // Por ejemplo, podrías devolver un ID existente de la base de datos o generar uno nuevo
+        return faker.number().numberBetween(1L, 100L);
+    }
 }

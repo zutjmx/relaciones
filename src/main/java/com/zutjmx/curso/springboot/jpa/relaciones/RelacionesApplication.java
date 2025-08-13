@@ -72,8 +72,10 @@ public class RelacionesApplication implements CommandLineRunner {
 
 	public void manyToOneFindByIdCliente() {
 		// Implementación de la lógica ManyToOne
-		Cliente cliente = clienteRepository.findById(1L)
-				.orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+		Long idCliente = fakeData.generaIdClienteAleatorio();
+		System.out.println("ID de cliente generado aleatoriamente: " + idCliente);
+		Cliente cliente = clienteRepository.findById(idCliente)
+				.orElseThrow(() -> new RuntimeException("Cliente no encontrado: " + idCliente));
 		System.out.println("Cliente encontrado: " + cliente);
 
 		Factura factura = fakeData.crearFacturaFalsa(cliente);
