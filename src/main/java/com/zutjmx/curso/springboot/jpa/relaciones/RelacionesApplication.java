@@ -47,6 +47,7 @@ public class RelacionesApplication implements CommandLineRunner {
 		System.out.println("1 .- ManyToOne");
 		System.out.println("2 .- ManyToOneFindByIdCliente");
 		System.out.println("3 .- Crea Persona y Dirección");
+		System.out.println("4 .- Crea Dirección de una Persona");
 
 		Scanner	scanner = new Scanner(System.in);
 		System.out.println("Selecciona una opción:");
@@ -66,6 +67,10 @@ public class RelacionesApplication implements CommandLineRunner {
 				System.out.println("Has seleccionado Crea Persona y Dirección");
 				creaPersonaYDireccion();
 				break;
+			case 4:
+				System.out.println("Has seleccionado Crea Dirección de una Persona");
+				creaDireccion();
+				break;
 			default:
 				System.out.println("Opción no válida");
 				break;
@@ -75,11 +80,13 @@ public class RelacionesApplication implements CommandLineRunner {
 
 	public void creaDireccion() {
 		Long idPersona = fakeData.generaIdClienteAleatorio();
+		System.out.println("ID de persona generado aleatoriamente: " + idPersona);
 		Persona persona = personaRepository.findById(idPersona)
 				.orElseThrow(() -> new RuntimeException("Persona no encontrada: " + idPersona));
 		System.out.println("Persona encontrada: " + persona);
 		Direccion direccion = fakeData.getDireccion(persona);
-		direccionRepository.save(direccion);
+		Direccion direccionGuardada = direccionRepository.save(direccion);
+		System.out.println("Dirección guardada: " + direccionGuardada);
 		System.out.println("Lógica creaDirección ejecutada");
 	}
 

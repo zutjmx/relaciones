@@ -119,5 +119,18 @@ public class Direccion {
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
+
+    @Override
+    public String toString() {
+        return "Direccion [id=" + id 
+        + ", calle=" + calle 
+        + ", numeroExterior=" + numeroExterior 
+        + ", numeroInterior=" + numeroInterior 
+        + ", ciudad=" + ciudad 
+        + ", estado=" + estado 
+        + ", pais=" + pais 
+        + ", codigoPostal=" + codigoPostal 
+        + "]";
+    }
     
 }
