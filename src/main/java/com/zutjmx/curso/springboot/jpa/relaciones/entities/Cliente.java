@@ -1,9 +1,14 @@
 package com.zutjmx.curso.springboot.jpa.relaciones.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,10 +24,15 @@ public class Cliente {
     private String materno;
     private String email;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Adress> adresses;
+
     public Cliente() {
+        this.adresses = new ArrayList<>();
     }
 
     public Cliente(String nombre, String paterno, String materno, String email) {
+        this();
         this.nombre = nombre;
         this.paterno = paterno;
         this.materno = materno;
@@ -69,13 +79,22 @@ public class Cliente {
         this.email = email;
     }
 
+    public List<Adress> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(List<Adress> adresses) {
+        this.adresses = adresses;
+    }
+
     @Override
     public String toString() {
         return "Cliente [id=" + id 
-        + ", nombre=" + nombre 
-        + ", paterno=" + paterno 
-        + ", materno=" + materno 
-        + ", email=" + email + "]";
+            + ", nombre=" + nombre 
+            + ", paterno=" + paterno 
+            + ", materno=" + materno 
+            + ", email=" + email 
+            + ", adresses=" + adresses + "]";
     }
 
 }
