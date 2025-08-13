@@ -1,5 +1,7 @@
 package com.zutjmx.curso.springboot.jpa.relaciones.util;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
@@ -41,6 +43,7 @@ public class FakeData {
         persona.setMaterno(faker.name().lastName());        
         persona.setEmail(faker.internet().emailAddress());
         persona.setLenguajeProgramacion(faker.programmingLanguage().name());
+        persona.setFechaCreacion(LocalDateTime.now());
         return persona;
     }
 

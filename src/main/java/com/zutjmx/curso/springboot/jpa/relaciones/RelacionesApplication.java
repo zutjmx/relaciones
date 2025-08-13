@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Cliente;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Direccion;
@@ -78,6 +79,7 @@ public class RelacionesApplication implements CommandLineRunner {
 		
 	}
 
+	@Transactional
 	public void creaDireccion() {
 		Long idPersona = fakeData.generaIdClienteAleatorio();
 		System.out.println("ID de persona generado aleatoriamente: " + idPersona);
@@ -90,6 +92,7 @@ public class RelacionesApplication implements CommandLineRunner {
 		System.out.println("Lógica creaDirección ejecutada");
 	}
 
+	@Transactional
 	public void creaPersonaYDireccion() {
 		Persona persona = fakeData.getPersona();
 		personaRepository.save(persona);
@@ -100,6 +103,7 @@ public class RelacionesApplication implements CommandLineRunner {
 		System.out.println("Lógica creaPersonaYDireccion ejecutada");
 	}
 
+	@Transactional
 	public void manyToOne() {
 		// Implementación de la lógica ManyToOne
 		Cliente cliente = fakeData.crearClienteFalso();
@@ -112,6 +116,7 @@ public class RelacionesApplication implements CommandLineRunner {
 		System.out.println("Lógica ManyToOne ejecutada");
 	}
 
+	@Transactional
 	public void manyToOneFindByIdCliente() {
 		// Implementación de la lógica ManyToOne
 		Long idCliente = fakeData.generaIdClienteAleatorio();
@@ -127,6 +132,7 @@ public class RelacionesApplication implements CommandLineRunner {
 		System.out.println("Lógica ManyToOneFindByIdCliente ejecutada");
 	}
 
+	@Transactional
 	public void manyToMany() {
 		// Implementación de la lógica ManyToMany
 		System.out.println("Lógica ManyToMany aún no implementada");
