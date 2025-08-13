@@ -1,5 +1,6 @@
 package com.zutjmx.curso.springboot.jpa.relaciones;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zutjmx.curso.springboot.jpa.relaciones.entities.Adress;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Cliente;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Direccion;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Factura;
@@ -49,6 +51,7 @@ public class RelacionesApplication implements CommandLineRunner {
 		System.out.println("2 .- ManyToOneFindByIdCliente");
 		System.out.println("3 .- Crea Persona y Dirección");
 		System.out.println("4 .- Crea Dirección de una Persona");
+		System.out.println("5 .- OneToMany");
 
 		Scanner	scanner = new Scanner(System.in);
 		System.out.println("Selecciona una opción:");
@@ -71,6 +74,10 @@ public class RelacionesApplication implements CommandLineRunner {
 			case 4:
 				System.out.println("Has seleccionado Crea Dirección de una Persona");
 				creaDireccion();
+				break;
+			case 5:
+				System.out.println("Has seleccionado OneToMany");
+				oneToMany();
 				break;
 			default:
 				System.out.println("Opción no válida");
@@ -133,10 +140,12 @@ public class RelacionesApplication implements CommandLineRunner {
 	}
 
 	@Transactional
-	public void manyToMany() {
-		// Implementación de la lógica ManyToMany
-		System.out.println("Lógica ManyToMany aún no implementada");
-		// Aquí puedes agregar la lógica para ManyToMany
+	public void oneToMany() {
+		Cliente cliente = fakeData.crearClienteFalso();
+		List<Adress> adresses = fakeData.getAdresses(5);
+		cliente.setAdresses(adresses);				
+		Cliente clienteGuardado = clienteRepository.save(cliente);
+		System.out.println("Cliente guardado: " + clienteGuardado);
 		System.out.println("Lógica ManyToMany ejecutada");
 	}
 

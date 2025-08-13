@@ -1,10 +1,13 @@
 package com.zutjmx.curso.springboot.jpa.relaciones.util;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
+import com.zutjmx.curso.springboot.jpa.relaciones.entities.Adress;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Cliente;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Direccion;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Factura;
@@ -58,5 +61,20 @@ public class FakeData {
         direccion.setPais(faker.address().country());
         direccion.setPersona(persona);
         return direccion;
+    }
+
+    public List<Adress> getAdresses(int count) {
+        List<Adress> adresses = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            adresses.add(new Adress(
+                faker.address().streetName(),
+                faker.number().numberBetween(1, 100),
+                faker.address().city(),
+                faker.address().state(),
+                faker.address().zipCode(),
+                faker.address().country()
+            ));
+        }
+        return adresses;
     }
 }
