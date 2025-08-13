@@ -8,9 +8,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Cliente;
+import com.zutjmx.curso.springboot.jpa.relaciones.entities.Direccion;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Factura;
+import com.zutjmx.curso.springboot.jpa.relaciones.entities.Persona;
 import com.zutjmx.curso.springboot.jpa.relaciones.repositories.ClienteRepository;
+import com.zutjmx.curso.springboot.jpa.relaciones.repositories.DireccionRepository;
 import com.zutjmx.curso.springboot.jpa.relaciones.repositories.FacturaRepository;
+import com.zutjmx.curso.springboot.jpa.relaciones.repositories.PersonaRepository;
 import com.zutjmx.curso.springboot.jpa.relaciones.util.FakeData;
 
 @SpringBootApplication
@@ -21,6 +25,12 @@ public class RelacionesApplication implements CommandLineRunner {
 
 	@Autowired
 	private FacturaRepository facturaRepository;
+
+	@Autowired
+	private PersonaRepository personaRepository;
+
+	@Autowired
+	private DireccionRepository direccionRepository;
 
 	@Autowired
 	private FakeData fakeData;
@@ -36,6 +46,7 @@ public class RelacionesApplication implements CommandLineRunner {
 		System.out.println("Opciones de la aplicación:");
 		System.out.println("1 .- ManyToOne");
 		System.out.println("2 .- ManyToOneFindByIdCliente");
+		System.out.println("3 .- Crea Persona y Dirección");
 
 		Scanner	scanner = new Scanner(System.in);
 		System.out.println("Selecciona una opción:");
@@ -51,11 +62,35 @@ public class RelacionesApplication implements CommandLineRunner {
 				System.out.println("Has seleccionado ManyToOneFindByIdCliente");
 				manyToOneFindByIdCliente();
 				break;
+			case 3:
+				System.out.println("Has seleccionado Crea Persona y Dirección");
+				creaPersonaYDireccion();
+				break;
 			default:
 				System.out.println("Opción no válida");
 				break;
 		}
 		
+	}
+
+	public void creaDireccion() {
+		Long idPersona = fakeData.generaIdClienteAleatorio();
+		Persona persona = personaRepository.findById(idPersona)
+				.orElseThrow(() -> new RuntimeException("Persona no encontrada: " + idPersona));
+		System.out.println("Persona encontrada: " + persona);
+		Direccion direccion = fakeData.getDireccion(persona);
+		direccionRepository.save(direccion);
+		System.out.println("Lógica creaDirección ejecutada");
+	}
+
+	public void creaPersonaYDireccion() {
+		Persona persona = fakeData.getPersona();
+		personaRepository.save(persona);
+		System.out.println("Persona guardada: " + persona);
+		Direccion direccion = fakeData.getDireccion(persona);
+		direccionRepository.save(direccion);
+		System.out.println("Dirección guardada: " + direccion);		
+		System.out.println("Lógica creaPersonaYDireccion ejecutada");
 	}
 
 	public void manyToOne() {

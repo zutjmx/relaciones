@@ -4,7 +4,9 @@ import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Cliente;
+import com.zutjmx.curso.springboot.jpa.relaciones.entities.Direccion;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Factura;
+import com.zutjmx.curso.springboot.jpa.relaciones.entities.Persona;
 
 @Component
 public class FakeData {
@@ -29,8 +31,29 @@ public class FakeData {
     }
 
     public Long generaIdClienteAleatorio() {
-        // Aquí puedes implementar la lógica para generar un ID de cliente aleatorio
-        // Por ejemplo, podrías devolver un ID existente de la base de datos o generar uno nuevo
         return faker.number().numberBetween(1L, 100L);
+    }
+
+    public Persona getPersona() {
+        Persona persona = new Persona();
+        persona.setNombre(faker.name().firstName());
+        persona.setPaterno(faker.name().lastName());
+        persona.setMaterno(faker.name().lastName());        
+        persona.setEmail(faker.internet().emailAddress());
+        persona.setLenguajeProgramacion(faker.programmingLanguage().name());
+        return persona;
+    }
+
+    public Direccion getDireccion(Persona persona) {
+        Direccion direccion = new Direccion();
+        direccion.setCalle(faker.address().streetName());
+        direccion.setNumeroExterior(faker.number().numberBetween(1L, 1000L));
+        direccion.setNumeroInterior(faker.number().numberBetween(1L, 1000L));
+        direccion.setCiudad(faker.address().city());
+        direccion.setEstado(faker.address().state());
+        direccion.setCodigoPostal(faker.address().zipCode());
+        direccion.setPais(faker.address().country());
+        direccion.setPersona(persona);
+        return direccion;
     }
 }
