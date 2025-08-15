@@ -12,6 +12,7 @@ import com.zutjmx.curso.springboot.jpa.relaciones.entities.Cliente;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Direccion;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Factura;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Persona;
+import com.zutjmx.curso.springboot.jpa.relaciones.entities.Telefono;
 
 @Component
 public class FakeData {
@@ -76,5 +77,16 @@ public class FakeData {
             ));
         }
         return adresses;
+    }
+
+    public List<Telefono> getTelefonos(int count) {
+        List<Telefono> telefonos = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Telefono telefono = new Telefono();
+            telefono.setNumero(faker.phoneNumber().phoneNumber());
+            telefono.setTipo(faker.options().option("Casa", "Trabajo", "Movil"));
+            telefonos.add(telefono);
+        }
+        return telefonos;
     }
 }

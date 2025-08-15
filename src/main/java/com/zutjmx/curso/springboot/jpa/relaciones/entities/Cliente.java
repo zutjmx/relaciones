@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -26,6 +27,10 @@ public class Cliente {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Adress> adresses;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "cliente_id")
+    private List<Telefono> telefonos;
 
     public Cliente() {
         this.adresses = new ArrayList<>();
@@ -87,6 +92,14 @@ public class Cliente {
         this.adresses = adresses;
     }
 
+    public List<Telefono> getTelefonos() {
+        return telefonos;
+    }
+
+    public void setTelefonos(List<Telefono> telefonos) {
+        this.telefonos = telefonos;
+    }
+
     @Override
     public String toString() {
         return "Cliente [id=" + id 
@@ -94,7 +107,9 @@ public class Cliente {
             + ", paterno=" + paterno 
             + ", materno=" + materno 
             + ", email=" + email 
-            + ", adresses=" + adresses + "]";
+            + ", adresses=" + adresses
+            + ", telefonos=" + telefonos 
+            + "]";
     }
 
 }

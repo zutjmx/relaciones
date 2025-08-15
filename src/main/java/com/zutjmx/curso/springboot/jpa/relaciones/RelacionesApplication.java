@@ -14,6 +14,7 @@ import com.zutjmx.curso.springboot.jpa.relaciones.entities.Cliente;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Direccion;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Factura;
 import com.zutjmx.curso.springboot.jpa.relaciones.entities.Persona;
+import com.zutjmx.curso.springboot.jpa.relaciones.entities.Telefono;
 import com.zutjmx.curso.springboot.jpa.relaciones.repositories.ClienteRepository;
 import com.zutjmx.curso.springboot.jpa.relaciones.repositories.DireccionRepository;
 import com.zutjmx.curso.springboot.jpa.relaciones.repositories.FacturaRepository;
@@ -52,6 +53,7 @@ public class RelacionesApplication implements CommandLineRunner {
 		System.out.println("3 .- Crea Persona y Dirección");
 		System.out.println("4 .- Crea Dirección de una Persona");
 		System.out.println("5 .- OneToMany");
+		System.out.println("6 .- Guarda Cliente y Teléfonos");
 
 		Scanner	scanner = new Scanner(System.in);
 		System.out.println("Selecciona una opción:");
@@ -78,6 +80,10 @@ public class RelacionesApplication implements CommandLineRunner {
 			case 5:
 				System.out.println("Has seleccionado OneToMany");
 				oneToMany();
+				break;
+			case 6:
+				System.out.println("Has seleccionado Guarda Cliente y Teléfonos");
+				guardaClienteYTelefonos();
 				break;
 			default:
 				System.out.println("Opción no válida");
@@ -147,6 +153,16 @@ public class RelacionesApplication implements CommandLineRunner {
 		Cliente clienteGuardado = clienteRepository.save(cliente);
 		System.out.println("Cliente guardado: " + clienteGuardado);
 		System.out.println("Lógica ManyToMany ejecutada");
+	}
+
+	@Transactional
+	public void guardaClienteYTelefonos() {
+		Cliente cliente = fakeData.crearClienteFalso();
+		List<Telefono> telefonos = fakeData.getTelefonos(5);
+		cliente.setTelefonos(telefonos);
+		Cliente clienteGuardado = clienteRepository.save(cliente);
+		System.out.println("Cliente guardado: " + clienteGuardado);
+		System.out.println("Lógica guardaClienteYTelefonos ejecutada");
 	}
 
 }
